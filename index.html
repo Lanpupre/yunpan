@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>蓝奏云文件下载</title>
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+
+        }
+
+        
+
+        body {
+
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+
+            color: #333;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+        }
+
+        
+
+        .container {
+
+            max-width: 500px;
+
+            width: 100%;
+
+            background: white;
+
+            border-radius: 16px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+            overflow: hidden;
+
+        }
+
+        
+
+        .header {
+
+            background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+
+            color: white;
+
+            padding: 25px 20px;
+
+            text-align: center;
+
+        }
+
+        
+
+        .header h1 {
+
+            font-size: 24px;
+
+            margin-bottom: 8px;
+
+        }
+
+        
+
+        .header p {
+
+            opacity: 0.9;
+
+        }
+
+        
+
+        .content {
+
+            padding: 30px;
+
+        }
+
+        
+
+        .file-info {
+
+            background: #f8f9fa;
+
+            border-radius: 12px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+            border-left: 4px solid #6a11cb;
+
+        }
+
+        
+
+        .file-info h3 {
+
+            color: #6a11cb;
+
+            margin-bottom: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+        
+
+        .file-info h3 i {
+
+            margin-right: 8px;
+
+        }
+
+        
+
+        .link-box {
+
+            display: flex;
+
+            background: #f0f2f5;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+
+            margin-bottom: 20px;
+
+        }
+
+        
+
+        .link-box input {
+
+            flex: 1;
+
+            border: none;
+
+            padding: 12px 15px;
+
+            background: transparent;
+
+            font-size: 14px;
+
+            color: #333;
+
+        }
+
+        
+
+        .link-box button {
+
+            background: #6a11cb;
+
+            color: white;
+
+            border: none;
+
+            padding: 0 15px;
+
+            cursor: pointer;
+
+            transition: background 0.3s;
+
+        }
+
+        
+
+        .link-box button:hover {
+
+            background: #5a0db3;
+
+        }
+
+        
+
+        .password-section {
+
+            display: flex;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+
+        }
+
+        
+
+        .password-box {
+
+            flex: 1;
+
+            background: #f0f2f5;
+
+            border-radius: 8px;
+
+            padding: 12px 15px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            text-align: center;
+
+            color: #6a11cb;
+
+        }
+
+        
+
+        .copy-btn {
+
+            background: #2575fc;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            padding: 12px 20px;
+
+            margin-left: 10px;
+
+            cursor: pointer;
+
+            transition: background 0.3s;
+
+        }
+
+        
+
+        .copy-btn:hover {
+
+            background: #1c68e0;
+
+        }
+
+        
+
+        .action-buttons {
+
+            display: flex;
+
+            gap: 15px;
+
+        }
+
+        
+
+        .btn {
+
+            flex: 1;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: all 0.3s;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+        
+
+        .btn-primary {
+
+            background: #6a11cb;
+
+            color: white;
+
+        }
+
+        
+
+        .btn-primary:hover {
+
+            background: #5a0db3;
+
+            transform: translateY(-2px);
+
+        }
+
+        
+
+        .btn-secondary {
+
+            background: #e9ecef;
+
+            color: #495057;
+
+        }
+
+        
+
+        .btn-secondary:hover {
+
+            background: #dee2e6;
+
+            transform: translateY(-2px);
+
+        }
+
+        
+
+        .footer {
+
+            text-align: center;
+
+            padding: 20px;
+
+            color: #6c757d;
+
+            font-size: 14px;
+
+            border-top: 1px solid #e9ecef;
+
+        }
+
+        
+
+        .icon {
+
+            margin-right: 8px;
+
+        }
+
+        
+
+        .success-message {
+
+            background: #d4edda;
+
+            color: #155724;
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+            margin-top: 15px;
+
+            display: none;
+
+        }
+
+        
+
+        @media (max-width: 480px) {
+
+            .action-buttons {
+
+                flex-direction: column;
+
+            }
+
+            
+
+            .password-section {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+            }
+
+            
+
+            .copy-btn {
+
+                margin-left: 0;
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>蓝奏云文件下载</h1>
+
+            <p>点击下方按钮跳转至下载页面</p>
+
+        </div>
+
+        
+
+        <div class="content">
+
+            <div class="file-info">
+
+                <h3><i class="icon">📁</i> 文件信息</h3>
+
+                <p>该文件通过蓝奏云分享，下载需要提取密码。</p>
+
+            </div>
+
+            
+
+            <div class="link-box">
+
+                <input type="text" value="https://lanpupre.lanzouo.com/iBOG538rrgre" readonly id="file-link">
+
+                <button id="copy-link">复制链接</button>
+
+            </div>
+
+            
+
+            <div class="password-section">
+
+                <div class="password-box" id="password-display">bbgh</div>
+
+                <button class="copy-btn" id="copy-password">复制密码</button>
+
+            </div>
+
+            
+
+            <div class="success-message" id="success-message">密码已复制到剪贴板！</div>
+
+            
+
+            <div class="action-buttons">
+
+                <a href="https://lanpupre.lanzouo.com/iBOG538rrgre" class="btn btn-primary" target="_blank">
+
+                    <i class="icon">🚀</i> 立即跳转下载
+
+                </a>
+
+                <button class="btn btn-secondary" id="refresh-page">
+
+                    <i class="icon">🔄</i> 刷新页面
+
+                </button>
+
+            </div>
+
+        </div>
+
+        
+
+        <div class="footer">
+
+            <p>本页面仅提供跳转服务，文件内容由上传者负责</p>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const copyPasswordBtn = document.getElementById('copy-password');
+
+            const copyLinkBtn = document.getElementById('copy-link');
+
+            const passwordDisplay = document.getElementById('password-display');
+
+            const successMessage = document.getElementById('success-message');
+
+            const refreshBtn = document.getElementById('refresh-page');
+
+            
+
+            // 复制密码功能
+
+            copyPasswordBtn.addEventListener('click', function() {
+
+                const password = passwordDisplay.textContent;
+
+                navigator.clipboard.writeText(password).then(function() {
+
+                    showSuccessMessage();
+
+                });
+
+            });
+
+            
+
+            // 复制链接功能
+
+            copyLinkBtn.addEventListener('click', function() {
+
+                const link = document.getElementById('file-link').value;
+
+                navigator.clipboard.writeText(link).then(function() {
+
+                    showSuccessMessage();
+
+                });
+
+            });
+
+            
+
+            // 显示成功消息
+
+            function showSuccessMessage() {
+
+                successMessage.style.display = 'block';
+
+                setTimeout(function() {
+
+                    successMessage.style.display = 'none';
+
+                }, 3000);
+
+            }
+
+            
+
+            // 刷新页面
+
+            refreshBtn.addEventListener('click', function() {
+
+                location.reload();
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
